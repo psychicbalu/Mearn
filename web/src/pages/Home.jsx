@@ -106,7 +106,7 @@ function Home() {
             homeProjects?.length > 0 ? homeProjects.map(project => (
               <Col sm={12} md={6} lg={3}>
 
-                <ProjectCard />
+                <ProjectCard  project ={project}/>
 
               </Col>
               

@@ -20,8 +20,8 @@ export const  loginAPI= async (user)=>{
 
 //add project
 
-export const AddProjectApi=async (reqbody,reqheader)=>{
-    return await commonAPI('POST',`${BASE_URL}/projects/add`,reqbody,reqheader)
+export const AddProjectApi=async (reqBody,reqHeader)=>{
+    return await commonAPI('POST',`${BASE_URL}/projects/add`,reqBody,reqHeader)
 }
 
 //gethomeprojects

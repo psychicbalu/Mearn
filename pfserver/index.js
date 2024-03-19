@@ -20,6 +20,8 @@ pfServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
+pfServer.use('/uploads',express.static('./uploads'))
+
 pfServer.get('/',(req,res)=>{
     res.send('<h1>Project-fair started and waiting for the client request aiuuddaksudhu</h1>')
   });

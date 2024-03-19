@@ -3,11 +3,12 @@ import Card from 'react-bootstrap/Card';
 import cardimage from '../components/assets/default.jpg'
 import { Col, Modal, Row } from 'react-bootstrap';
 import modalimage from '../components/assets/default.jpg'
+import {BASE_URL} from '../services/baseurl';
 
 
 
 
-function ProjectCard() {
+function ProjectCard({project}) {
 
     const [show, setShow] = useState(false);
 
@@ -16,13 +17,17 @@ function ProjectCard() {
 
   return (
     <div>
-      <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src= {cardimage} onClick={handleShow}/>
+      
+      
+      { project && <Card style={{ width: '18rem' }}>
+      
+      <Card.Img variant="top" src={project? `${BASE_URL}/uploads/${project?.projectImage}`:cardimage} onClick={handleShow} />
       <Card.Body>
-        <Card.Title>Project Title</Card.Title>
+        <Card.Title>{project.title}</Card.Title>
         
       </Card.Body>
-    </Card>
+    </Card>}
+{
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
@@ -30,14 +35,15 @@ function ProjectCard() {
         <Modal.Body>
             <Row>
                 <Col md={6}>
-                    <img style={{height:"200px", width:"250px"}} className='img-fluid' src={modalimage} alt="image not found" />
+                <Card.Img variant="top" src={project? `${BASE_URL}/uploads/${project?.projectImage}`:cardimage} onClick={handleShow} />
+
                 
                 </Col>
 
                 <Col md={6}>
-                    <h2>Project Title</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem consequuntur perspiciatis animi ut non deleniti, consequatur dolore harum! Magni quos voluptatem, ducimus dignissimos eligendi harum perferendis blanditiis. Dolorum, consequatur dolor.</p>
-    <p>Language Used:<span className='fw-bolder'>HTML,CSS,JAVASCRIPT</span></p>
+                    <h2>{project.title}</h2>
+                    <p>{project.overview}</p>
+    <p>Language Used:<span className='fw-bolder'>{project.languages}</span></p>
                 
                 </Col>
             </Row>
@@ -49,6 +55,7 @@ function ProjectCard() {
         </Modal.Body>
       
       </Modal>
+}
     </div>
   )
 }
