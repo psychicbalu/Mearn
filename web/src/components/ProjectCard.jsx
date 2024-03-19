@@ -30,7 +30,7 @@ function ProjectCard({project}) {
 {
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>{project.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Row>
@@ -41,15 +41,14 @@ function ProjectCard({project}) {
                 </Col>
 
                 <Col md={6}>
-                    <h2>{project.title}</h2>
-                    <p>{project.overview}</p>
+                    <h4> over view : {project.overview}</h4>
     <p>Language Used:<span className='fw-bolder'>{project.languages}</span></p>
                 
                 </Col>
             </Row>
             <div>
-                <a className='m-3' href=""><i class="fa-brands fa-github"></i></a>
-                <a href=""><i class="fa-solid fa-link"></i>
+                <a className='m-3' href={project.github}><i class="fa-brands fa-github"></i></a>
+                <a href={project.website}><i class="fa-solid fa-link"></i>
 </a>
             </div>
         </Modal.Body>

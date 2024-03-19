@@ -6,7 +6,7 @@ const projects =require('../Models/projectSchema')
     const userId=req.payload
     const projectImage=req.file.filename
     const {title,languages,github,website,overview}=req.body
-    //console.log(` ${title} ,${languages} ,${github} ,${website} ,${overview} ,${projectImage},${userId}`)
+    console.log(` ${title} ,${languages} ,${github} ,${website} ,${overview} ,${projectImage},${userId}`)
    
 
     try {
@@ -25,7 +25,7 @@ const projects =require('../Models/projectSchema')
         }
         
     } catch (error) {
-        res.status(401).json('Request failed $(error)')
+        res.status(401).json(`Request failed $(error)`)
     }
 }
 
@@ -58,7 +58,10 @@ exports.getallprojects=async(req,res)=>{
 
 exports.getHomeprojects=async(req,res)=>{
     try{
-        const homeProjects= await projects.find().limit(3)
+        // const homeProjects= await projects.find().limit(3)
+        const homeProjects = await projects.aggregate([{ $sample: { size: 3 } }]);  // updated to get random 3 projects using the aggregate function from mongoose that will return 3 random projects on every request
+
+
         res.status(200).json(homeProjects)
     }
     catch(err){

@@ -19,8 +19,7 @@ router.post('/user/login',userController.login)
 
 
 
-//export router
-module.exports = router;
+
 
 
 //add project
@@ -42,3 +41,6 @@ router.get('/projects/all',jwtMiddleware,projectController.getallprojects)
 // getHome projects
 
 router.get('/projects/homeprojects',projectController.getHomeprojects)
+
+//export router
+module.exports = router;

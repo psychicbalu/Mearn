@@ -4,7 +4,7 @@ import { AddProjectApi } from '../services/allAPI';
 
 function AddProjects() {
 
-  const [token,setToken]=useState([])
+  const [token,setToken]=useState("")
 
   const [projectDetails,setProjectDetails]=useState({
     title:"",languages:"",github:"",website:"",overview:"",projectImage:""
@@ -19,15 +19,15 @@ function AddProjects() {
    },[projectDetails.projectImage])
 
 
-   useEffect(()=>{
-    if(sessionStorage.getItem("token")){
-      setToken(sessionStorage.getItem("token"))
-  
+   useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+        setToken(storedToken);
+    } else {
+        setToken("");
     }
-    else{
-      setToken("")
-    }
-   })
+}, []);
+
 
 
     const [show, setShow] = useState(false);
