@@ -6,10 +6,9 @@ import { allProjectAPI } from '../services/allAPI'
 
 
 function Projects() {
-
+  const [searchkey,setSearchKey]=useState("")
   const [allprojects,setAllProjects]=useState([])
 
-  const [searchkey,setSearchKey]=useState("")
 
   const getAllProject= async ()=>{
     if(sessionStorage.getItem("token")){
@@ -20,14 +19,14 @@ function Projects() {
       }
 
       const result=await allProjectAPI(searchkey,reqHeader)
-      if(result.status==200){
+      if(result.status===200){
         setAllProjects(result.data)
       }else{
         console.log(result);
       }
     }
   }
-  console.log(allprojects);
+  console.log("searchkey",searchkey);
   useEffect(()=>{
     getAllProject()
   },[searchkey])

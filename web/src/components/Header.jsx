@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom'
 
 function Header({insideDashboard}) {  // added to clear the session storage when logout button is clicked
 
-  sessionStorage.clear();
+  
+  function clearInterval(){
+    if(sessionStorage.getItem("token")){
+      sessionStorage.clear();
+
+    }
+  }
+ 
   
   return (
     <div>
@@ -17,8 +24,8 @@ function Header({insideDashboard}) {  // added to clear the session storage when
           </Navbar.Brand  >
           {
             insideDashboard && 
-            // <button className='btn btn-danger' onClick={clearInterval} >Logout</button>
-            <Link to={'/'}><button className='btn btn-danger' >Logout</button></Link>  // added a link to the logout button
+            //  <button className='btn btn-danger' onClick={clearInterval} >Logout</button>
+             <Link to={'/'}><button className='btn btn-danger' onClick={clearInterval} >Logout</button></Link>  // added a link to the logout button
           }
         </Container>
       </Navbar>
