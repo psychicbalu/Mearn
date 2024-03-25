@@ -2,14 +2,14 @@ import React, { createContext, useState } from 'react'
 
 export const addProjectResponseContext = createContext()
 
-function ContextShare(children) {
+function ContextShare({children}) {
 
-    const [addProjectResponse,setProjectResponse]=useState({})
+    const [addProjectResponse,setAddProjectResponse]=useState({})
   return (
    <>
-   <addProjectResponse.Provider value={{addProjectResponse,setProjectResponse}}>
+   <addProjectResponseContext.Provider value={{addProjectResponse,setAddProjectResponse}}>
          {children}
-   </addProjectResponse.Provider>
+   </addProjectResponseContext.Provider>
    </>
   )
 }

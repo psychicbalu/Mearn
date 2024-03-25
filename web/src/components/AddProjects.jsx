@@ -1,8 +1,10 @@
 import { Button, Modal } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AddProjectApi } from '../services/allAPI';
+import { addProjectResponseContext } from './context/ContextShare';
 
 function AddProjects() {
+  const{addProjectResponse,setAddProjectResponse}=useContext(addProjectResponseContext)
 
   const [token,setToken]=useState("")
 
@@ -26,7 +28,7 @@ function AddProjects() {
     } else {
         setToken("");
     }
-}, []);
+},);
 
 
 
