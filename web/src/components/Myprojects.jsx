@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import AddProjects from './AddProjects'
-import { useState } from 'react'
-import { userProjectAPI } from '../services/allAPI'
-import { addProjectResponseContext } from './context/ContextShare'
+import { userProjectAPI , deleteProjectAPI } from '../services/allAPI'
+import { addProjectResponseContext , editProjectResponseContext } from './context/ContextShare'
 import { Alert } from 'react-bootstrap'
 import EditProject from './EditeProject'
 
 
-function MyProjects() {
-  const [userProjects, setUserProjects] = useState([])
 
-  const{addProjectResponse,setAddProjectResponse}=useContext(addProjectResponseContext)
+function MyProjects() {
+  const [userProjects,setUserProjects]= useState([])
+  const {addProjectResponse,setAddProjectResponse}=useContext(addProjectResponseContext)
+  const {editProjectResponse,setEditProjectResponse}=useContext(editProjectResponseContext)
 
   const getuserproject = async () => {
 
@@ -36,7 +36,23 @@ function MyProjects() {
 
   useEffect(() => {
     getuserproject()
-}, [addProjectResponse]);
+}, [addProjectResponse,editProjectResponse]);
+
+const handleDelete = async(id)=>{
+  const token = sessionStorage.getItem("token")
+  const reqHeader = {
+    "Content-Type":"application/json",
+      "Authorization":`Bearer ${token}`
+  }
+  const result = await deleteProjectAPI(id,reqHeader)
+  if(result.status===200){
+    // page reload
+    getuserproject()
+  }else{
+    alert(result.response.data)
+  }
+}
+
   
 
   return (
@@ -63,7 +79,7 @@ function MyProjects() {
                <EditProject project={project}/>
               <button onClick={project.github} className='btn'><i class="fa-brands fa-github"></i></button>
               
-              <button className='btn'><i class="fa-solid fa-trash"></i></button>
+              <button onClick={()=>handleDelete(project._id)}className='btn'><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
         )) : <p className="text-danger fw-bolder fs-5">No Projects Uploaded Yer !!!</p>}

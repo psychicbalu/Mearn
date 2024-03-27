@@ -122,3 +122,15 @@ exports.getHomeprojects=async(req,res)=>{
     
 }
  
+//delete project
+
+exports.deleteProjectController = async(req,res)=>{
+    // get project details
+    const {id}=req.params
+    try{
+        const removeProject = await projects.findByIdAndDelete({_id:id})
+        res.status(200).json(removeProject)
+    }catch(err){
+        res.status(401).json(err)
+    }
+}

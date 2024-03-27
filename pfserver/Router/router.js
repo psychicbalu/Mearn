@@ -47,7 +47,9 @@ router.get('/projects/homeprojects',projectController.getHomeprojects)
 
 router.put('/projects/edit/:id',jwtMiddleware,multerConfig.single('projectImage'),projectController.editProjectController)
 
+//delete project
 
+router.delete('/projects/remove/:id',jwtMiddleware,projectController.deleteProjectController)
 
 //export router
 module.exports = router;

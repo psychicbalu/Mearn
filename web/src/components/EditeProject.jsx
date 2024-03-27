@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect,useContext, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import { BASE_URL } from '../services/baseurl';
 import { editProjectAPI } from '../services/allAPI';
+import { editProjectResponseContext } from './context/ContextShare';
 
 
 
 function EditProject({project}) {
-
+  const {editProjectResponse,setEditProjectResponse}=useContext(editProjectResponseContext)
+  
   const [projectDetails,setProjectDetails]=useState({
    id:project._id, title:project.title,languages:project.languages,github:project.github,
     website:project.website,overview:project.overview,projectImage:""
@@ -59,7 +61,7 @@ function EditProject({project}) {
             if(result.status===200){
               handleClose()
               //pass the response to my projects
-
+              setEditProjectResponse(result.data)
             }else{
               console.log(result);
               alert(result.response.data)
@@ -77,7 +79,7 @@ function EditProject({project}) {
             if(result.status===200){
               handleClose()
               //pass the response to my projects
-
+              setEditProjectResponse(result.data)
             }else{
               console.log(result);
               alert(result.response.data)
