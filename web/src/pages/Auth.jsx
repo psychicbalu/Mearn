@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Form } from 'react-bootstrap';
 import Lottie from 'react-lottie';
@@ -6,6 +6,7 @@ import animationData from '../components/assets/login.json';
 import { loginAPI, registerAPI } from '../services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { tokenAuthorizationContext } from '../components/context/TokenAuth';
 
 const defaultOptions = {
     loop: true,
@@ -18,6 +19,7 @@ const defaultOptions = {
 
 
 function Auth({ register }) {
+    const {isAuthenticated, setIsAuthenticated} = useContext(tokenAuthorizationContext)
     const navigate = useNavigate()
 
     const [userData, setUserData] = useState({
@@ -69,6 +71,7 @@ function Auth({ register }) {
                 //toast.success(${result.data.username} has registered successfully);
                 sessionStorage.setItem("existingUser", JSON.stringify(result.data.existingUser))
                 sessionStorage.setItem("token", result.data.token)
+                setIsAuthenticated(true)
                 setUserData({
                     username: "", password: ""
                 })
